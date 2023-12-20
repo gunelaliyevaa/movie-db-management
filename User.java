@@ -24,4 +24,15 @@ public class User implements Serializable {
     return watchlist;
   }
 
+  public String addToWatchlist(Movie movie) {
+    if (!watchlist.contains(movie)) {
+      watchlist.add(movie);
+      return "Movie added to your watchlist";
+    }
+    return "Movie already exists in the watchlist";
+  }
+
+  public boolean removeFromWatchlist(Movie movie) {
+    return watchlist.remove(movie);
+  }
 }
