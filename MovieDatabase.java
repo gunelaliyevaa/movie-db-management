@@ -16,4 +16,9 @@ public class MovieDatabase {
             throw new IllegalArgumentException("Movie already exists in the database.");
         }
     }
+
+    public void removeMovie(String title) {
+        movies.removeIf(movie -> movie.getTitle().equals(title));
+        System.out.println("Movie removed from the database: " + title);
+    }
 }
