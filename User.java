@@ -35,4 +35,15 @@ public class User implements Serializable {
   public boolean removeFromWatchlist(Movie movie) {
     return watchlist.remove(movie);
   }
+
+  public static User login(String username, String password) {
+    List<User> users = readUsersFromFile();
+    for (User user : users) {
+      if (user.getUsername().equals(username) && user.authenticate(password)) {
+        return user; // Successfully logged in
+      }
+    }
+    throw new IllegalArgumentException("Invalid username or password");
+  }
+  
 }
