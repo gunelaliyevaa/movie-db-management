@@ -45,5 +45,36 @@ public class User implements Serializable {
     }
     throw new IllegalArgumentException("Invalid username or password");
   }
-  
+
+  public static String register(String username, String password) {
+    List<User> users = readUsersFromFile();
+    for (User user : users) {
+      if (user.getUsername().equals(username)) {
+        return "Username already exists. Choose a different username.";
+      }
+    }
+
+    User newUser = new User(username, password);
+    users.add(newUser);
+    saveUsersToFile(users);
+
+    return "Registration successful!";
+  }
+
+  private static List<User> readUsersFromFile() {
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(USER_DATABASE_FILE))) {
+      return (List<User>) ois.readObject();
+    } catch (ClassNotFoundException | IOException e) {
+      return new ArrayList<>();
+    }
+  }
+
+  private static void saveUsersToFile(List<User> users) {
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(USER_DATABASE_FILE))) {
+      oos.writeObject(users);
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IllegalArgumentException("Error writing to the user database");
+    }
+  }
 }
