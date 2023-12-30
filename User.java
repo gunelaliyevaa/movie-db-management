@@ -61,6 +61,10 @@ public class User implements Serializable {
     return "Registration successful!";
   }
 
+  public boolean authenticate(String password) {
+    return this.password.equals(password);
+  }
+
   private static List<User> readUsersFromFile() {
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(USER_DATABASE_FILE))) {
       return (List<User>) ois.readObject();
