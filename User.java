@@ -9,11 +9,15 @@ public class User implements Serializable {
   private String username;
   private String password;
   private List<Movie> watchlist;
+  private final String watchlistFile;
+
 
   public User(String username, String password) {
     this.username = username;
     this.password = password;
     this.watchlist = new ArrayList<>();
+    this.watchlistFile = username + "_watchlist.csv";
+
   }
 
   public String getUsername() {
