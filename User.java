@@ -11,13 +11,11 @@ public class User implements Serializable {
   private List<Movie> watchlist;
   private final String watchlistFile;
 
-
   public User(String username, String password) {
     this.username = username;
     this.password = password;
     this.watchlist = new ArrayList<>();
     this.watchlistFile = username + "_watchlist.csv";
-
   }
 
   public String getUsername() {
@@ -25,7 +23,7 @@ public class User implements Serializable {
   }
 
   public List<Movie> getWatchlist() {
-    return watchlist;
+    return new ArrayList<>(watchlist);
   }
 
   public String addToWatchlist(Movie movie) {
