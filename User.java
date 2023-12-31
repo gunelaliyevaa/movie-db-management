@@ -31,13 +31,18 @@ public class User implements Serializable {
   public String addToWatchlist(Movie movie) {
     if (!watchlist.contains(movie)) {
       watchlist.add(movie);
+      saveWatchlistToFile();
       return "Movie added to your watchlist";
     }
     return "Movie already exists in the watchlist";
   }
 
   public boolean removeFromWatchlist(Movie movie) {
-    return watchlist.remove(movie);
+    boolean removed = watchlist.remove(movie);
+    if (removed) {
+      saveWatchlistToFile();
+    }
+    return removed;
   }
 
   public static User login(String username, String password) {
