@@ -82,8 +82,10 @@ public class User implements Serializable {
 
   private static List<User> readUsersFromFile() {
     try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(USER_DATABASE_FILE))) {
-      return (List<User>) ois.readObject();
-    } catch (ClassNotFoundException | IOException e) {
+      @SuppressWarnings("unchecked")
+      List<User> userList = (List<User>) ois.readObject();
+      return userList;
+    } catch (Exception e) {
       return new ArrayList<>();
     }
   }
