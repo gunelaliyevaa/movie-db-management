@@ -49,7 +49,8 @@ public class User implements Serializable {
     List<User> users = readUsersFromFile();
     for (User user : users) {
       if (user.getUsername().equals(username) && user.authenticate(password)) {
-        return user; // Successfully logged in
+        user.loadWatchlistFromFile();
+        return user;
       }
     }
     throw new IllegalArgumentException("Invalid username or password");
