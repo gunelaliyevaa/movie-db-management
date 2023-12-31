@@ -64,6 +64,11 @@ public class User implements Serializable {
       }
     }
 
+    // Check if the password meets the minimum length requirement
+    if (password.length() < 4) {
+      return "Password must be at least 4 characters long.";
+    }
+
     User newUser = new User(username, password);
     users.add(newUser);
     saveUsersToFile(users);
