@@ -94,4 +94,15 @@ public class User implements Serializable {
       throw new IllegalArgumentException("Error writing to the watchlist file");
     }
   }
+
+  private void loadWatchlistFromFile() {
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(watchlistFile))) {
+      @SuppressWarnings("unchecked")
+      List<Movie> watchlistFromFile = (List<Movie>) ois.readObject();
+      watchlist.clear();
+      watchlist.addAll(watchlistFromFile);
+    } catch (IOException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
 }
