@@ -85,4 +85,13 @@ public class User implements Serializable {
       throw new IllegalArgumentException("Error writing to the user database");
     }
   }
+
+  public void saveWatchlistToFile() {
+    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(watchlistFile))) {
+      oos.writeObject(watchlist);
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new IllegalArgumentException("Error writing to the watchlist file");
+    }
+  }
 }
