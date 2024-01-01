@@ -158,6 +158,20 @@ public class MovieApp extends JFrame {
 
       add(panel);
     }
+
+    private void handleRegistration() {
+      String username = usernameField.getText();
+      char[] passwordChars = passwordField.getPassword();
+      String password = new String(passwordChars);
+
+      try {
+        String result = User.register(username, password);
+        JOptionPane.showMessageDialog(null, result);
+        dispose();
+      } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
 }
