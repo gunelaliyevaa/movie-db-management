@@ -104,6 +104,20 @@ public class MovieApp extends JFrame {
 
       add(panel);
     }
+
+    private void handleLogin() {
+      String username = usernameField.getText();
+      char[] passwordChars = passwordField.getPassword();
+      String password = new String(passwordChars);
+
+      try {
+        currentUser = User.login(username, password);
+        showMovieManagementFrame(currentUser);
+        dispose();
+      } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
 }
