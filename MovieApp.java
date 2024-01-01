@@ -239,6 +239,25 @@ public class MovieApp extends JFrame {
 
       add(containerPanel, BorderLayout.CENTER);
     }
+
+    private void setFixedButtonSize(JButton button) {
+      button.setPreferredSize(new Dimension(200, 50));
+      button.setFont(new Font("Arial", Font.BOLD, 16));
+    }
+
+    private void showAddMovieForm() {
+      MovieFormFrame movieForm = new MovieFormFrame(this, "Add Movie");
+      movieForm.setVisible(true);
+    }
+
+    private void browseMovies() {
+      if (movieDatabase != null) {
+        List<Movie> movies = movieDatabase.getMovies();
+        displayMoviesWithAddToWatchlist(movies);
+      } else {
+        JOptionPane.showMessageDialog(null, "MovieDatabase not initialized", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
 }
