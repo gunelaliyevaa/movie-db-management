@@ -48,11 +48,19 @@ public class MovieApp extends JFrame {
       e.printStackTrace();
     }
   }
-  
+
   private JButton createStyledButton(String text) {
     JButton button = new JButton(text);
     button.setPreferredSize(new Dimension(400, 90));
     button.setFont(new Font("Arial", Font.BOLD, 20));
     return button;
+  }
+
+  private void showFrame(JFrame frame, String title) {
+    frame.setTitle(title);
+    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    frame.setLocationRelativeTo(null);
+    frame.setVisible(true);
   }
 }
