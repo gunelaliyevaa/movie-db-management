@@ -120,4 +120,44 @@ public class MovieApp extends JFrame {
     }
   }
 
+  private class RegistrationFrame extends JFrame {
+    private JTextField usernameField;
+    private JPasswordField passwordField;
+
+    public RegistrationFrame() {
+      JPanel panel = new JPanel();
+      JLabel usernameLabel = new JLabel("Username:");
+      JLabel passwordLabel = new JLabel("Password:");
+      usernameField = new JTextField(100);
+      passwordField = new JPasswordField(100);
+      JButton registerButton = new JButton("Register");
+      registerButton.addActionListener(e -> handleRegistration());
+
+      GroupLayout layout = new GroupLayout(panel);
+      panel.setLayout(layout);
+      layout.setAutoCreateGaps(true);
+      layout.setAutoCreateContainerGaps(true);
+
+      layout.setHorizontalGroup(layout.createSequentialGroup()
+          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+              .addComponent(usernameLabel)
+              .addComponent(passwordLabel))
+          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+              .addComponent(usernameField)
+              .addComponent(passwordField)
+              .addComponent(registerButton)));
+
+      layout.setVerticalGroup(layout.createSequentialGroup()
+          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+              .addComponent(usernameLabel)
+              .addComponent(usernameField))
+          .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+              .addComponent(passwordLabel)
+              .addComponent(passwordField))
+          .addComponent(registerButton));
+
+      add(panel);
+    }
+  }
+
 }
