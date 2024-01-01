@@ -26,5 +26,17 @@ public class MovieApp extends JFrame {
 
     loginButton.addActionListener(e -> showFrame(new LoginFrame(), "Login"));
     registerButton.addActionListener(e -> showFrame(new RegistrationFrame(), "User Registration"));
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.insets = new Insets(50, 0, 50, 0);
+    panel.add(loginButton, gbc);
+
+    gbc.gridy = 1;
+    panel.add(registerButton, gbc);
+
+    add(panel);
+    setVisible(true);
   }
 }
