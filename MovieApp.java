@@ -39,4 +39,13 @@ public class MovieApp extends JFrame {
     add(panel);
     setVisible(true);
   }
+
+  private void initializeLookAndFeel() {
+    try {
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException
+        | IllegalAccessException e) {
+      e.printStackTrace();
+    }
+  }
 }
