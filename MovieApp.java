@@ -172,6 +172,14 @@ public class MovieApp extends JFrame {
         JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
       }
     }
+
+    private void showMovieManagementFrame(User currentUser) {
+      if (currentUser != null) {
+        showFrame(new MovieManagementFrame(currentUser), "Movie Management");
+      } else {
+        JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
   }
 
 }
