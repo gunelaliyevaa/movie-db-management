@@ -182,4 +182,63 @@ public class MovieApp extends JFrame {
     }
   }
 
+  public class MovieManagementFrame extends JFrame {
+    private User currentUser;
+
+    public MovieManagementFrame(User currentUser) {
+      this.currentUser = currentUser;
+      setTitle("Movie Management");
+      setSize(800, 600);
+      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      setLocationRelativeTo(null);
+
+      JLabel headerLabel = new JLabel("Welcome to our 'Online Movie Database Management System' Project");
+      headerLabel.setFont(new Font("Arial", Font.BOLD, 30));
+      headerLabel.setHorizontalAlignment(JLabel.CENTER);
+
+      JButton browseButton = createStyledButton("Browse Movies");
+      JButton watchlistButton = createStyledButton("Watchlist");
+      JButton addButton = createStyledButton("Add Movie");
+      JButton removeButton = createStyledButton("Remove Movie");
+
+      setFixedButtonSize(browseButton);
+      setFixedButtonSize(watchlistButton);
+      setFixedButtonSize(addButton);
+
+      setFixedButtonSize(removeButton);
+
+      browseButton.addActionListener(e -> browseMovies());
+      watchlistButton.addActionListener(e -> showWatchlist());
+      addButton.addActionListener(e -> showAddMovieForm());
+
+      removeButton.addActionListener(e -> removeMovie());
+
+      JPanel buttonPanel = new JPanel();
+      buttonPanel.setLayout(new GridBagLayout());
+
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.anchor = GridBagConstraints.CENTER;
+      buttonPanel.add(headerLabel, gbc);
+
+      gbc.gridy = 1;
+      buttonPanel.add(browseButton, gbc);
+
+      gbc.gridy = 2;
+      buttonPanel.add(watchlistButton, gbc);
+
+      gbc.gridy = 3;
+      buttonPanel.add(addButton, gbc);
+
+      gbc.gridy = 4;
+      buttonPanel.add(removeButton, gbc);
+
+      JPanel containerPanel = new JPanel(new GridBagLayout());
+      containerPanel.add(buttonPanel);
+
+      add(containerPanel, BorderLayout.CENTER);
+    }
+  }
+
 }
