@@ -360,7 +360,11 @@ public class MovieApp extends JFrame {
         JPanel watchlistPanel = new JPanel();
         watchlistPanel.setLayout(new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS));
 
+        int totalRunningTime = 0; // Initialize total running time
+
         for (Movie movie : currentUser.getWatchlist()) {
+          totalRunningTime += movie.getRunningTime(); // Sum up running time
+
           JPanel movieInfoPanel = new JPanel();
           movieInfoPanel.setLayout(new BorderLayout());
 
@@ -373,6 +377,11 @@ public class MovieApp extends JFrame {
 
           watchlistPanel.add(movieInfoPanel);
         }
+
+        // Display total running time
+        JLabel totalRunningTimeLabel = new JLabel("Total Running Time: " + totalRunningTime + " minutes");
+        totalRunningTimeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        watchlistPanel.add(totalRunningTimeLabel);
 
         JScrollPane scrollPane = new JScrollPane(watchlistPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
