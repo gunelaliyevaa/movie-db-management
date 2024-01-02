@@ -325,4 +325,35 @@ public class MovieApp extends JFrame {
     }
   }
 
+  private Comparator<Movie> getComparator(String sortBy) {
+    switch (sortBy) {
+      case "Title":
+        return Comparator.comparing(Movie::getTitle);
+      case "Director":
+        return Comparator.comparing(Movie::getDirector);
+      case "Release Year":
+        return Comparator.comparingInt(Movie::getReleaseYear);
+      case "Running Time":
+        return Comparator.comparingInt(Movie::getRunningTime);
+      default:
+        return null;
+    }
+  }
+
+  private void removeMovie() {
+    String titleToRemove = promptForMovieName("Enter the title of the movie to remove from the database:");
+    if (titleToRemove != null) {
+      boolean removed = movieDatabase.removeMovie(titleToRemove);
+      if (removed) {
+        JOptionPane.showMessageDialog(null, "Movie removed from the database");
+      } else {
+        JOptionPane.showMessageDialog(null, "Movie not found in the database", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
+  }
+
+  private String promptForMovieName(String message) {
+    return JOptionPane.showInputDialog(null, message, "Enter Movie Name", JOptionPane.QUESTION_MESSAGE);
+  }
+
 }
