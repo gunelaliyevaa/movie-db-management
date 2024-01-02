@@ -356,4 +356,47 @@ public class MovieApp extends JFrame {
     return JOptionPane.showInputDialog(null, message, "Enter Movie Name", JOptionPane.QUESTION_MESSAGE);
   }
 
+  private void showWatchlist() {
+    if (currentUser != null && !currentUser.getWatchlist().isEmpty()) {
+      JPanel watchlistPanel = new JPanel();
+      watchlistPanel.setLayout(new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS));
+
+      for (Movie movie : currentUser.getWatchlist()) {
+        JPanel movieInfoPanel = new JPanel();
+        movieInfoPanel.setLayout(new BorderLayout());
+
+        JLabel movieLabel = new JLabel(movie.toString());
+        JButton deleteButton = new JButton("Delete from Watchlist");
+        deleteButton.addActionListener(e -> removeFromWatchlist(movie));
+
+        movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
+        movieInfoPanel.add(deleteButton, BorderLayout.EAST);
+
+        watchlistPanel.add(movieInfoPanel);
+      }
+
+      JScrollPane scrollPane = new JScrollPane(watchlistPanel);
+      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+      JOptionPane.showMessageDialog(null, scrollPane, "Your Watchlist", JOptionPane.INFORMATION_MESSAGE);
+    } else {
+      JOptionPane.showMessageDialog(null, "Watchlist is empty", "Watchlist", JOptionPane.INFORMATION_MESSAGE);
+    }
+  }
+
+  private void removeFromWatchlist(Movie movie) {
+    if (currentUser != null) {
+      boolean removed = currentUser.removeFromWatchlist(movie);
+      if (removed) {
+        JOptionPane.showMessageDialog(null, "Movie removed from your watchlist");
+        currentUser.saveWatchlistToFile();
+      } else {
+        JOptionPane.showMessageDialog(null, "Movie not found in your watchlist", "Error",
+            JOptionPane.ERROR_MESSAGE);
+      }
+    } else {
+      JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+  }
+
 }
