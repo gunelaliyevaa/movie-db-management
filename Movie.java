@@ -53,6 +53,13 @@ public class Movie implements Serializable {
                 Objects.equals(director, movie.director);
     }
 
+    private static String escapeCsv(String value) {
+        if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
+            return "\"" + value.replace("\"", "\"\"") + "\"";
+        }
+        return value;
+    }
+
     private static void validateInput(String title, String director, int releaseYear, int runningTime) {
         if (!isValidString(title) || !isValidString(director)) {
             throw new IllegalArgumentException("Title and director cannot be null or empty");
