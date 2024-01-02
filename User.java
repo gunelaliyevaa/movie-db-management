@@ -6,9 +6,9 @@ public class User implements Serializable {
   private static final long serialVersionUID = 1L;
   private static final String USER_DATABASE_FILE = "userDatabase.txt";
 
-  private String username;
-  private String password;
-  private List<Movie> watchlist;
+  private final String username;
+  private final String password;
+  private final List<Movie> watchlist;
   private final String watchlistFile;
 
   public User(String username, String password) {
