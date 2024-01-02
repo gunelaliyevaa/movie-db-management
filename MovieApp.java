@@ -260,4 +260,69 @@ public class MovieApp extends JFrame {
     }
   }
 
+  private void displayMoviesWithAddToWatchlist(List<Movie> movies) {
+    JPanel moviePanel = new JPanel();
+    moviePanel.setLayout(new BoxLayout(moviePanel, BoxLayout.Y_AXIS));
+
+    if (!movies.isEmpty()) {
+      for (Movie movie : movies) {
+        JPanel movieInfoPanel = new JPanel();
+        movieInfoPanel.setLayout(new BorderLayout());
+
+        JLabel movieLabel = new JLabel(movie.toString());
+
+        JButton addToWatchlistButton = new JButton("Add to Watchlist");
+        addToWatchlistButton.addActionListener(e -> addToWatchlist(movie));
+
+        movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
+        movieInfoPanel.add(addToWatchlistButton, BorderLayout.EAST);
+
+        moviePanel.add(movieInfoPanel);
+      }
+    } else {
+      JOptionPane.showMessageDialog(null, "No movies found", "Movie Database", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    JButton sortButton = new JButton("Sort Movies");
+    sortButton.addActionListener(e -> sortMovies(movies));
+    moviePanel.add(sortButton); // Add the button at the end of the panel
+
+    JScrollPane scrollPane = new JScrollPane(moviePanel);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+    JOptionPane.showMessageDialog(this, scrollPane, "Movie Database", JOptionPane.INFORMATION_MESSAGE);
+  }
+
+  private void sortMovies(List<Movie> movies) {
+    String[] options = { "Title", "Director", "Release Year", "Running Time" };
+    String sortBy = (String) JOptionPane.showInputDialog(
+        this,
+        "Sort By:",
+        "Sort Movies",
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        options,
+        options[0]);
+
+    if (sortBy != null) {
+      Comparator<Movie> comparator = getComparator(sortBy);
+      if (comparator != null) {
+        movies.sort(comparator);
+      }
+
+      // Redraw the movie list with sorted movies
+      displayMoviesWithAddToWatchlist(movies);
+    }
+  }
+
+  private void addToWatchlist(Movie movie) {
+    if (currentUser != null) {
+      String result = currentUser.addToWatchlist(movie);
+      JOptionPane.showMessageDialog(null, result);
+      currentUser.saveWatchlistToFile();
+    } else {
+      JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+  }
+
 }
