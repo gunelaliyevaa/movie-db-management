@@ -33,6 +33,9 @@ public class Movie implements Serializable {
         return runningTime;
     }
 
+    public String toCSVString() {
+        return String.format("%s,%s,%d,%d", escapeCsv(title), escapeCsv(director), releaseYear, runningTime);
+    }
 
     @Override
     public String toString() {
