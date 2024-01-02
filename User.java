@@ -4,7 +4,7 @@ import java.util.List;
 
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
-  private static final String USER_DATABASE_FILE = "userDatabase.txt";
+  private static final String USER_DATABASE_FILE = "userDatabase.csv";
 
   private final String username;
   private final String password;
@@ -30,9 +30,9 @@ public class User implements Serializable {
     if (!watchlist.contains(movie)) {
       watchlist.add(movie);
       saveWatchlistToFile();
-      return "Movie added to your watchlist";
+      return "Movie added to watchlist";
     }
-    return "Movie already exists in the watchlist";
+    return "Movie already exists in watchlist";
   }
 
   public boolean removeFromWatchlist(Movie movie) {
