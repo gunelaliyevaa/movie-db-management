@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 
 public class MovieApp extends JFrame {
+
   private User currentUser;
   private MovieDatabase movieDatabase = new MovieDatabase("movieDatabaseFile.csv");
 
@@ -172,13 +172,13 @@ public class MovieApp extends JFrame {
         JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
       }
     }
+  }
 
-    private void showMovieManagementFrame(User currentUser) {
-      if (currentUser != null) {
-        showFrame(new MovieManagementFrame(currentUser), "Movie Management");
-      } else {
-        JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
-      }
+  private void showMovieManagementFrame(User currentUser) {
+    if (currentUser != null) {
+      showFrame(new MovieManagementFrame(currentUser), "Movie Management");
+    } else {
+      JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -258,145 +258,146 @@ public class MovieApp extends JFrame {
         JOptionPane.showMessageDialog(null, "MovieDatabase not initialized", "Error", JOptionPane.ERROR_MESSAGE);
       }
     }
-  }
 
-  private void displayMoviesWithAddToWatchlist(List<Movie> movies) {
-    JPanel moviePanel = new JPanel();
-    moviePanel.setLayout(new BoxLayout(moviePanel, BoxLayout.Y_AXIS));
+    private void displayMoviesWithAddToWatchlist(List<Movie> movies) {
+      JPanel moviePanel = new JPanel();
+      moviePanel.setLayout(new BoxLayout(moviePanel, BoxLayout.Y_AXIS));
 
-    if (!movies.isEmpty()) {
-      for (Movie movie : movies) {
-        JPanel movieInfoPanel = new JPanel();
-        movieInfoPanel.setLayout(new BorderLayout());
+      if (!movies.isEmpty()) {
+        for (Movie movie : movies) {
+          JPanel movieInfoPanel = new JPanel();
+          movieInfoPanel.setLayout(new BorderLayout());
 
-        JLabel movieLabel = new JLabel(movie.toString());
+          JLabel movieLabel = new JLabel(movie.toString());
 
-        JButton addToWatchlistButton = new JButton("Add to Watchlist");
-        addToWatchlistButton.addActionListener(e -> addToWatchlist(movie));
+          JButton addToWatchlistButton = new JButton("Add to Watchlist");
+          addToWatchlistButton.addActionListener(e -> addToWatchlist(movie));
 
-        movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
-        movieInfoPanel.add(addToWatchlistButton, BorderLayout.EAST);
+          movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
+          movieInfoPanel.add(addToWatchlistButton, BorderLayout.EAST);
 
-        moviePanel.add(movieInfoPanel);
-      }
-    } else {
-      JOptionPane.showMessageDialog(null, "No movies found", "Movie Database", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    JButton sortButton = new JButton("Sort Movies");
-    sortButton.addActionListener(e -> sortMovies(movies));
-    moviePanel.add(sortButton); // Add the button at the end of the panel
-
-    JScrollPane scrollPane = new JScrollPane(moviePanel);
-    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-    JOptionPane.showMessageDialog(this, scrollPane, "Movie Database", JOptionPane.INFORMATION_MESSAGE);
-  }
-
-  private void sortMovies(List<Movie> movies) {
-    String[] options = { "Title", "Director", "Release Year", "Running Time" };
-    String sortBy = (String) JOptionPane.showInputDialog(
-        this,
-        "Sort By:",
-        "Sort Movies",
-        JOptionPane.QUESTION_MESSAGE,
-        null,
-        options,
-        options[0]);
-
-    if (sortBy != null) {
-      Comparator<Movie> comparator = getComparator(sortBy);
-      if (comparator != null) {
-        movies.sort(comparator);
-      }
-
-      // Redraw the movie list with sorted movies
-      displayMoviesWithAddToWatchlist(movies);
-    }
-  }
-
-  private void addToWatchlist(Movie movie) {
-    if (currentUser != null) {
-      String result = currentUser.addToWatchlist(movie);
-      JOptionPane.showMessageDialog(null, result);
-      currentUser.saveWatchlistToFile();
-    } else {
-      JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-  }
-
-  private Comparator<Movie> getComparator(String sortBy) {
-    switch (sortBy) {
-      case "Title":
-        return Comparator.comparing(Movie::getTitle);
-      case "Director":
-        return Comparator.comparing(Movie::getDirector);
-      case "Release Year":
-        return Comparator.comparingInt(Movie::getReleaseYear);
-      case "Running Time":
-        return Comparator.comparingInt(Movie::getRunningTime);
-      default:
-        return null;
-    }
-  }
-
-  private void removeMovie() {
-    String titleToRemove = promptForMovieName("Enter the title of the movie to remove from the database:");
-    if (titleToRemove != null) {
-      boolean removed = movieDatabase.removeMovie(titleToRemove);
-      if (removed) {
-        JOptionPane.showMessageDialog(null, "Movie removed from the database");
+          moviePanel.add(movieInfoPanel);
+        }
       } else {
-        JOptionPane.showMessageDialog(null, "Movie not found in the database", "Error", JOptionPane.ERROR_MESSAGE);
-      }
-    }
-  }
-
-  private String promptForMovieName(String message) {
-    return JOptionPane.showInputDialog(null, message, "Enter Movie Name", JOptionPane.QUESTION_MESSAGE);
-  }
-
-  private void showWatchlist() {
-    if (currentUser != null && !currentUser.getWatchlist().isEmpty()) {
-      JPanel watchlistPanel = new JPanel();
-      watchlistPanel.setLayout(new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS));
-
-      for (Movie movie : currentUser.getWatchlist()) {
-        JPanel movieInfoPanel = new JPanel();
-        movieInfoPanel.setLayout(new BorderLayout());
-
-        JLabel movieLabel = new JLabel(movie.toString());
-        JButton deleteButton = new JButton("Delete from Watchlist");
-        deleteButton.addActionListener(e -> removeFromWatchlist(movie));
-
-        movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
-        movieInfoPanel.add(deleteButton, BorderLayout.EAST);
-
-        watchlistPanel.add(movieInfoPanel);
+        JOptionPane.showMessageDialog(null, "No movies found", "Movie Database", JOptionPane.INFORMATION_MESSAGE);
       }
 
-      JScrollPane scrollPane = new JScrollPane(watchlistPanel);
+      JButton sortButton = new JButton("Sort Movies");
+      sortButton.addActionListener(e -> sortMovies(movies));
+      moviePanel.add(sortButton); // Add the button at the end of the panel
+
+      JScrollPane scrollPane = new JScrollPane(moviePanel);
       scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-      JOptionPane.showMessageDialog(null, scrollPane, "Your Watchlist", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-      JOptionPane.showMessageDialog(null, "Watchlist is empty", "Watchlist", JOptionPane.INFORMATION_MESSAGE);
+      JOptionPane.showMessageDialog(this, scrollPane, "Movie Database", JOptionPane.INFORMATION_MESSAGE);
     }
-  }
 
-  private void removeFromWatchlist(Movie movie) {
-    if (currentUser != null) {
-      boolean removed = currentUser.removeFromWatchlist(movie);
-      if (removed) {
-        JOptionPane.showMessageDialog(null, "Movie removed from your watchlist");
+    private void sortMovies(List<Movie> movies) {
+      String[] options = { "Title", "Director", "Release Year", "Running Time" };
+      String sortBy = (String) JOptionPane.showInputDialog(
+          this,
+          "Sort By:",
+          "Sort Movies",
+          JOptionPane.QUESTION_MESSAGE,
+          null,
+          options,
+          options[0]);
+
+      if (sortBy != null) {
+        Comparator<Movie> comparator = getComparator(sortBy);
+        if (comparator != null) {
+          movies.sort(comparator);
+        }
+
+        // Redraw the movie list with sorted movies
+        displayMoviesWithAddToWatchlist(movies);
+      }
+    }
+
+    private void addToWatchlist(Movie movie) {
+      if (currentUser != null) {
+        String result = currentUser.addToWatchlist(movie);
+        JOptionPane.showMessageDialog(null, result);
         currentUser.saveWatchlistToFile();
       } else {
-        JOptionPane.showMessageDialog(null, "Movie not found in your watchlist", "Error",
-            JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
       }
-    } else {
-      JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    private Comparator<Movie> getComparator(String sortBy) {
+      switch (sortBy) {
+        case "Title":
+          return Comparator.comparing(Movie::getTitle);
+        case "Director":
+          return Comparator.comparing(Movie::getDirector);
+        case "Release Year":
+          return Comparator.comparingInt(Movie::getReleaseYear);
+        case "Running Time":
+          return Comparator.comparingInt(Movie::getRunningTime);
+        default:
+          return null;
+      }
+    }
+
+    private void removeMovie() {
+      String titleToRemove = promptForMovieName("Enter the title of the movie to remove from the database:");
+      if (titleToRemove != null) {
+        boolean removed = movieDatabase.removeMovie(titleToRemove);
+        if (removed) {
+          JOptionPane.showMessageDialog(null, "Movie removed from the database");
+        } else {
+          JOptionPane.showMessageDialog(null, "Movie not found in the database", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+      }
+    }
+
+    private String promptForMovieName(String message) {
+      return JOptionPane.showInputDialog(null, message, "Enter Movie Name", JOptionPane.QUESTION_MESSAGE);
+    }
+
+    private void showWatchlist() {
+      if (currentUser != null && !currentUser.getWatchlist().isEmpty()) {
+        JPanel watchlistPanel = new JPanel();
+        watchlistPanel.setLayout(new BoxLayout(watchlistPanel, BoxLayout.Y_AXIS));
+
+        for (Movie movie : currentUser.getWatchlist()) {
+          JPanel movieInfoPanel = new JPanel();
+          movieInfoPanel.setLayout(new BorderLayout());
+
+          JLabel movieLabel = new JLabel(movie.toString());
+          JButton deleteButton = new JButton("Delete from Watchlist");
+          deleteButton.addActionListener(e -> removeFromWatchlist(movie));
+
+          movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
+          movieInfoPanel.add(deleteButton, BorderLayout.EAST);
+
+          watchlistPanel.add(movieInfoPanel);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(watchlistPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        JOptionPane.showMessageDialog(null, scrollPane, "Your Watchlist", JOptionPane.INFORMATION_MESSAGE);
+      } else {
+        JOptionPane.showMessageDialog(null, "Watchlist is empty", "Watchlist", JOptionPane.INFORMATION_MESSAGE);
+      }
+    }
+
+    private void removeFromWatchlist(Movie movie) {
+      if (currentUser != null) {
+        boolean removed = currentUser.removeFromWatchlist(movie);
+        if (removed) {
+          JOptionPane.showMessageDialog(null, "Movie removed from your watchlist");
+          currentUser.saveWatchlistToFile();
+        } else {
+          JOptionPane.showMessageDialog(null, "Movie not found in your watchlist", "Error",
+              JOptionPane.ERROR_MESSAGE);
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "User not logged in", "Error", JOptionPane.ERROR_MESSAGE);
+      }
+    }
+
   }
 
   public class MovieListFrame extends JFrame {
@@ -476,4 +477,77 @@ public class MovieApp extends JFrame {
     }
   }
 
+  public class MovieFormFrame extends JFrame {
+    private JTextField titleField;
+    private JTextField directorField;
+    private JTextField releaseYearField;
+    private JTextField runningTimeField;
+
+    public MovieFormFrame(JFrame parent, String title) {
+      super(title);
+      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      setLocationRelativeTo(parent);
+      setSize(400, 300);
+
+      JPanel panel = new JPanel();
+      panel.setLayout(new GridLayout(5, 2, 10, 10));
+
+      JLabel titleLabel = new JLabel("Title:");
+      titleField = new JTextField();
+      JLabel directorLabel = new JLabel("Director:");
+      directorField = new JTextField();
+      JLabel releaseYearLabel = new JLabel("Release Year:");
+      releaseYearField = new JTextField();
+      JLabel runningTimeLabel = new JLabel("Running Time:");
+      runningTimeField = new JTextField();
+
+      panel.add(titleLabel);
+      panel.add(titleField);
+      panel.add(directorLabel);
+      panel.add(directorField);
+      panel.add(releaseYearLabel);
+      panel.add(releaseYearField);
+      panel.add(runningTimeLabel);
+      panel.add(runningTimeField);
+
+      JButton submitButton = new JButton("Submit");
+      submitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          handleSubmit();
+        }
+      });
+
+      panel.add(submitButton);
+
+      add(panel);
+    }
+
+    private void handleSubmit() {
+      try {
+        String title = titleField.getText();
+        String director = directorField.getText();
+        int releaseYear = Integer.parseInt(releaseYearField.getText());
+        int runningTime = Integer.parseInt(runningTimeField.getText());
+
+        // Create and add the movie to the database
+        Movie movie = new Movie(title, director, releaseYear, runningTime);
+        movieDatabase.addMovie(movie);
+
+        JOptionPane.showMessageDialog(null, "Movie added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+      } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "Invalid release year or running time", "Input Error",
+            JOptionPane.ERROR_MESSAGE);
+      } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Input Error", JOptionPane.ERROR_MESSAGE);
+      }
+
+      // Close the form after submission
+      dispose();
+    }
+  }
+
+  public static void main(String[] args) {
+    SwingUtilities.invokeLater(MovieApp::new);
+  }
 }
