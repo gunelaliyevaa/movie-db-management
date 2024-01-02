@@ -436,6 +436,44 @@ public class MovieApp extends JFrame {
 
       add(containerPanel);
     }
+
+    private void sortMovies(List<Movie> movies) {
+      String[] options = { "Title", "Director", "Release Year", "Running Time" };
+      String sortBy = (String) JOptionPane.showInputDialog(
+          this,
+          "Sort By:",
+          "Sort Movies",
+          JOptionPane.QUESTION_MESSAGE,
+          null,
+          options,
+          options[0]);
+
+      if (sortBy != null) {
+        Comparator<Movie> comparator = getComparator(sortBy);
+        movies.sort(comparator);
+
+        // Redraw the MovieListFrame with sorted movies
+        getContentPane().removeAll();
+        displayMoviesWithSortOption(movies);
+        revalidate();
+        repaint();
+      }
+    }
+
+    private Comparator<Movie> getComparator(String sortBy) {
+      switch (sortBy) {
+        case "Title":
+          return Comparator.comparing(Movie::getTitle);
+        case "Director":
+          return Comparator.comparing(Movie::getDirector);
+        case "Release Year":
+          return Comparator.comparingInt(Movie::getReleaseYear);
+        case "Running Time":
+          return Comparator.comparingInt(Movie::getRunningTime);
+        default:
+          return null;
+      }
+    }
   }
 
 }
