@@ -399,4 +399,43 @@ public class MovieApp extends JFrame {
     }
   }
 
+  public class MovieListFrame extends JFrame {
+    public MovieListFrame(List<Movie> movies) {
+      setTitle("Movie List");
+      setSize(800, 600);
+      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      setLocationRelativeTo(null);
+
+      // Display movies in MovieListFrame
+      displayMoviesWithSortOption(movies);
+    }
+
+    private void displayMoviesWithSortOption(List<Movie> movies) {
+      JPanel moviePanel = new JPanel();
+      moviePanel.setLayout(new BoxLayout(moviePanel, BoxLayout.Y_AXIS));
+
+      for (Movie movie : movies) {
+        JPanel movieInfoPanel = new JPanel();
+        movieInfoPanel.setLayout(new BorderLayout());
+
+        JLabel movieLabel = new JLabel(movie.toString());
+
+        movieInfoPanel.add(movieLabel, BorderLayout.CENTER);
+        moviePanel.add(movieInfoPanel);
+      }
+
+      JScrollPane scrollPane = new JScrollPane(moviePanel);
+      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+      JButton sortButton = new JButton("Sort Movies");
+      sortButton.addActionListener(e -> sortMovies(movies));
+
+      JPanel containerPanel = new JPanel(new BorderLayout());
+      containerPanel.add(scrollPane, BorderLayout.CENTER);
+      containerPanel.add(sortButton, BorderLayout.SOUTH);
+
+      add(containerPanel);
+    }
+  }
+
 }
