@@ -42,3 +42,4 @@ To run the application, you need to have Java installed on your system.
 Upon launching the application, users can either log in or register. Once logged in, users can browse the movie database, add movies to their watchlist, and manage their watchlist.
 
 Project Link: [https://github.com/gunelaliyevaa/movie-db-management](https://github.com/gunelaliyevaa/movie-db-management)
+Video Record Link: [https://adauniversity-my.sharepoint.com/:l:/g/personal/gmuradova14125_ada_edu_az/FIAEJ8uxFV9MnpGztHNrwJMBMGyo0cpD6-Mx3fTxLKSpiQ?e=EAmRQb](https://adauniversity-my.sharepoint.com/:l:/g/personal/gmuradova14125_ada_edu_az/FIAEJ8uxFV9MnpGztHNrwJMBMGyo0cpD6-Mx3fTxLKSpiQ?e=EAmRQb)
