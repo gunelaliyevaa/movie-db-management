@@ -13,7 +13,7 @@ This Java-based Movie Application is a comprehensive system for managing a movie
 
 ## Demo
 
-For a detailed walkthrough of the Movie Application, check out our video demonstration here: [Video Explanation](#https://adauniversity-my.sharepoint.com/personal/gmuradova14125_ada_edu_az/_layouts/15/stream.aspx?id=%2Fpersonal%2Fgmuradova14125%5Fada%5Fedu%5Faz%2FDocuments%2Fpp2%20term%20project%2Emp4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0&ct=1704547561821&or=Outlook%2DBody&cid=EB4A4971%2D7CDD%2D44ED%2D9369%2DD5A38088AF15&ga=1&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview)
+For a detailed walkthrough of the Movie Application, check out our video demonstration here: [Video Explanation](https://adauniversity-my.sharepoint.com/personal/gmuradova14125_ada_edu_az/_layouts/15/stream.aspx?id=%2Fpersonal%2Fgmuradova14125%5Fada%5Fedu%5Faz%2FDocuments%2Fpp2%20term%20project%2Emp4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0&ct=1704547561821&or=Outlook%2DBody&cid=EB4A4971%2D7CDD%2D44ED%2D9369%2DD5A38088AF15&ga=1&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview)
 
 ## How to Run
 
